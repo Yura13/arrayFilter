@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Array Filter</title>
+    <link rel="stylesheet" href="bootstrap/bootstrap.min.css"/>
+    <script src="jquery/jquery.min.js"></script>
+    <script src="bootstrap/bootstrap.min.js"></script>
+</head>
+<style>
+    body {
+        padding: 20px;
+    }
+    span {
+        color: red;
+    }
+</style>
+<body>
+
+<div id="data"></div>
+<br/><br/>
+
+<div>
+    <label>Введіть значення параметру <span>value</span> для сортування масиву об'єктів (через кому):</label>
+    <input type="text" id="values"/>
+</div>
+
+<button class="btn btn-success" onclick="clickFilter()" id="Filter">Фільтрувати масив</button>
+<br/><br/>
+
+<div id="results"></div>
+
+</body>
+<script>
+    var arr1 = [{value: 0, text: "January"}, {value: 1, text: "February"}, {value: 2, text: "March"},
+        {value: 3, text: "April"}, {value: 4, text: "May"}, {value: 5, text: "June"},
+        {value: 6, text: "July"}, {value: 7, text: "August"}, {value: 8, text: "September"},
+        {value: 9, text: "October"}, {value: 10, text: "November"}, {value: 11, text: "December"}];
+
+    function dataPrint() {
+        var data = document.getElementById("data");
+        arr1.forEach(function(item){
+            data.innerHTML += "{ value: " + item.value + ", text: " + item.text + "}, ";
+        });
+    }
+    dataPrint();
+
+    function clickFilter() {
+        var newArray = arr1.filter(valueFilter);
+
+        var result = document.getElementById("results");
+        result.innerHTML = "";
+        newArray.forEach(function(item){
+            result.innerHTML += "{ value: " + item.value + ", text: " + item.text + "}, ";
+        });
+    }
+
+    function valueFilter(item) {
+        var values = document.getElementById("values").value;
+        if (values.length != 0) {
+            var arr2 = values.split(',');
+            for (var i= 0; i < arr2.length; i++)
+                if (item.value == arr2[i]) return false;
+        }
+        return true;
+    }
+</script>
+</html>
